@@ -1,0 +1,65 @@
+{
+  "name": "@samples/node-http",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "samples/node-http/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "samples/node-http/src/main.ts",
+          "tsConfig": "samples/node-http/tsconfig.app.json",
+          "assets": [
+            "samples/node-http/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "@samples/node-http:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "@samples/node-http:build:development"
+          },
+          "production": {
+            "buildTarget": "@samples/node-http:build:production"
+          }
+        }
+      }
+    }
+  }
+}

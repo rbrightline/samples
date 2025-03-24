@@ -41,9 +41,10 @@
   },
   "generators": {
     "@nx/node:application": {
+      "bundler": "esbuild",
       "linter": "eslint",
       "unitTestRunner": "none",
-      "endToEndTestRunner": "none",
+      "e2eTestRunner": "none",
       "framework": "none"
     }
   }
