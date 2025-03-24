@@ -1,9 +1,8 @@
 {
-  "name": "@samples/samples",
+  "name": "@samples/openai",
   "version": "0.0.1",
   "private": true,
   "nx": {
-    "name": "samples",
     "targets": {
       "build": {
         "executor": "@nx/esbuild:esbuild",
@@ -13,15 +12,15 @@
         "defaultConfiguration": "production",
         "options": {
           "platform": "node",
-          "outputPath": "apps/samples/dist",
+          "outputPath": "samples/openai/dist",
           "format": [
             "cjs"
           ],
           "bundle": false,
-          "main": "apps/samples/src/main.ts",
-          "tsConfig": "apps/samples/tsconfig.app.json",
+          "main": "samples/openai/src/main.ts",
+          "tsConfig": "samples/openai/tsconfig.app.json",
           "assets": [
-            "apps/samples/src/assets"
+            "samples/openai/src/data"
           ],
           "esbuildOptions": {
             "sourcemap": true,
@@ -49,18 +48,21 @@
           "build"
         ],
         "options": {
-          "buildTarget": "samples:build",
+          "buildTarget": "@samples/openai:build",
           "runBuildTargetDependencies": false
         },
         "configurations": {
           "development": {
-            "buildTarget": "samples:build:development"
+            "buildTarget": "@samples/openai:build:development"
           },
           "production": {
-            "buildTarget": "samples:build:production"
+            "buildTarget": "@samples/openai:build:production"
           }
         }
       }
     }
+  },
+  "dependencies": {
+    "openai": "^4.89.0"
   }
 }

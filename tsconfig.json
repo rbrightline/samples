@@ -8,6 +8,9 @@
     },
     {
       "path": "./apps/samples"
+    },
+    {
+      "path": "./samples/openai"
     }
   ]
 }

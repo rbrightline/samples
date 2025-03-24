@@ -38,5 +38,13 @@
       "dependsOn": ["^build"],
       "inputs": ["production", "^production"]
     }
+  },
+  "generators": {
+    "@nx/node:application": {
+      "linter": "eslint",
+      "unitTestRunner": "none",
+      "endToEndTestRunner": "none",
+      "framework": "none"
+    }
   }
 }
