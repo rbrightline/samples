@@ -1,0 +1,70 @@
+{
+  "name": "@samples/addon",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "samples/addon/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "samples/addon/src/main.ts",
+          "tsConfig": "samples/addon/tsconfig.app.json",
+          "assets": [
+            "samples/addon/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "@samples/addon:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "@samples/addon:build:development"
+          },
+          "production": {
+            "buildTarget": "@samples/addon:build:production"
+          }
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@addon/hello":"1.0.0",
+    "node-addon-api": "^8.3.1",
+    "simdjson": "^0.9.2"
+  }
+}

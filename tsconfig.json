@@ -20,6 +20,12 @@
     },
     {
       "path": "./samples/node-http"
+    },
+    {
+      "path": "./samples/prisma"
+    },
+    {
+      "path": "./samples/addon"
     }
   ]
 }
