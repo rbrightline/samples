@@ -1,0 +1,66 @@
+{
+  "name": "@samples/samples",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "samples",
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "apps/samples/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "apps/samples/src/main.ts",
+          "tsConfig": "apps/samples/tsconfig.app.json",
+          "assets": [
+            "apps/samples/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "samples:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "samples:build:development"
+          },
+          "production": {
+            "buildTarget": "samples:build:production"
+          }
+        }
+      }
+    }
+  }
+}

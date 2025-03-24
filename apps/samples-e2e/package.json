@@ -1,0 +1,26 @@
+{
+  "name": "@samples/samples-e2e",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "samples-e2e",
+    "implicitDependencies": [
+      "samples"
+    ],
+    "targets": {
+      "e2e": {
+        "executor": "@nx/jest:jest",
+        "outputs": [
+          "{projectRoot}/test-output/jest/coverage"
+        ],
+        "options": {
+          "jestConfig": "apps/samples-e2e/jest.config.ts",
+          "passWithNoTests": true
+        },
+        "dependsOn": [
+          "samples:build"
+        ]
+      }
+    }
+  }
+}
