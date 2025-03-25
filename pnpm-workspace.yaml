@@ -1,2 +1,4 @@
-packages: 
-  - "samples/*"
+packages:
+  - samples/*
+onlyBuiltDependencies:
+  - sqlite3

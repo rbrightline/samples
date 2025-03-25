@@ -38,6 +38,9 @@
     },
     {
       "path": "./samples/apollo-server"
+    },
+    {
+      "path": "./samples/typeorm"
     }
   ]
 }
