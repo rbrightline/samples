@@ -1,15 +1,32 @@
-import { Column, DataSource, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  DataSource,
+  Entity,
+  JoinTable,
+  ManyToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
+
+@Entity()
+class Role {
+  @PrimaryGeneratedColumn() id: number;
+  @Column({ type: 'text' }) name: string;
+}
 
 @Entity()
 class User {
   @PrimaryGeneratedColumn() id: number;
   @Column({ type: 'text' }) username: string;
+
+  @ManyToMany(() => Role, { eager: true })
+  @JoinTable()
+  roles: Role[];
 }
 
 const datasource = new DataSource({
   type: 'sqlite',
   database: ':memory:',
-  entities: [User],
+  entities: [User, Role],
   synchronize: true,
   dropSchema: true,
 });

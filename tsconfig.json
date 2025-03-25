@@ -4,12 +4,6 @@
   "files": [],
   "references": [
     {
-      "path": "./apps/samples-e2e"
-    },
-    {
-      "path": "./apps/samples"
-    },
-    {
       "path": "./samples/openai"
     },
     {
@@ -26,9 +20,6 @@
     },
     {
       "path": "./samples/addon"
-    },
-    {
-      "path": "./samples/graphql"
     },
     {
       "path": "./samples/nestjs-fastify"
