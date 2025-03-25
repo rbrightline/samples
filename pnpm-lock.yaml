@@ -277,6 +277,22 @@ importers:
         specifier: ^8.18.0
         version: 8.18.0
 
+  samples/websocket-live:
+    dependencies:
+      express:
+        specifier: ^4.21.2
+        version: 4.21.2
+      ws:
+        specifier: ^8.18.1
+        version: 8.18.1
+    devDependencies:
+      '@types/express':
+        specifier: ^5.0.1
+        version: 5.0.1
+      '@types/ws':
+        specifier: ^8.18.0
+        version: 8.18.0
+
 packages:
 
   '@ampproject/remapping@2.3.0':

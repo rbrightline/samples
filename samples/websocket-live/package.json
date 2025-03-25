@@ -1,0 +1,73 @@
+{
+  "name": "@samples/websocket-live",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "samples/websocket-live/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "samples/websocket-live/src/main.ts",
+          "tsConfig": "samples/websocket-live/tsconfig.app.json",
+          "assets": [
+            "samples/websocket-live/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "@samples/websocket-live:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "@samples/websocket-live:build:development"
+          },
+          "production": {
+            "buildTarget": "@samples/websocket-live:build:production"
+          }
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "express": "^4.21.2",
+    "ws": "^8.18.1"
+  },
+  "devDependencies": {
+    "@types/express": "^5.0.1",
+    "@types/ws": "^8.18.0"
+  }
+}

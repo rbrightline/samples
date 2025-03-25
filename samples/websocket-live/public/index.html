@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WebSocket Live Stack View</title>
+    <style>
+      .live-stack {
+        /* Container styling */
+        width: 220px;
+        justify-content: center;
+        height: 100px; /* Adjust based on your needs */
+        background-color: #f5f5f5;
+        border: 1px solid orange;
+        box-sizing: content-box;
+        border-radius: 4px;
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: flex-end;
+        padding: 10px;
+
+        /* Ensure smooth animations */
+        will-change: transform;
+      }
+
+      .live-data {
+        right: 0;
+        color: gray;
+
+        /* Ensure hardware acceleration for smooth animation */
+        will-change: transform, opacity;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="live-stack" class="live-stack">
+      <!-- Dynamic data -->
+    </div>
+
+    <div id="system-container"></div>
+
+    <script>
+      let counter = 0;
+      const systemContainer = document.getElementById('system-container');
+      const liveStack = document.getElementById('live-stack');
+
+      // Connect to WebSocket server
+      const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
+      const ws = new WebSocket(`${protocol}//${window.location.host}`);
+
+      ws.onopen = () => {
+        console.log('Connected to WebSocket server');
+      };
+
+      ws.onmessage = (event) => {
+        const data = JSON.parse(event.data);
+
+        const current = document.createElement('div');
+        // <div style="background-color: gray; width: 1px; height: 50px"></div>
+
+        systemContainer.textContent = counter;
+        current.style.backgroundColor = 'gray';
+        current.style.width = '1px';
+        current.style.height = `${data}px`;
+        current.classList.add('live-data');
+
+        const intValue = parseInt(data);
+
+        counter++;
+        if (intValue > 75) {
+          current.style.backgroundColor = 'rgb(100,100,100)';
+        } else if (intValue > 50) {
+          current.style.backgroundColor = 'rgb(75,100,100)';
+        } else if (intValue > 30) {
+          current.style.backgroundColor = 'rgb(40,100,100)';
+        } else {
+          current.style.backgroundColor = 'rgb(10,100,100)';
+        }
+        liveStack.appendChild(current);
+
+        if (liveStack.childNodes.length > 200) {
+          liveStack.removeChild(liveStack.firstChild);
+        }
+      };
+
+      ws.onclose = () => {
+        console.log('Disconnected from WebSocket server');
+      };
+
+      ws.onerror = (error) => {
+        console.error('WebSocket error:', error);
+      };
+    </script>
+  </body>
+</html>
