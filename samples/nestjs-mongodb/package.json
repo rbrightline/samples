@@ -1,0 +1,72 @@
+{
+  "name": "@samples/nestjs-mongodb",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "samples/nestjs-mongodb/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "samples/nestjs-mongodb/src/main.ts",
+          "tsConfig": "samples/nestjs-mongodb/tsconfig.app.json",
+          "assets": [
+            "samples/nestjs-mongodb/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "@samples/nestjs-mongodb:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "@samples/nestjs-mongodb:build:development"
+          },
+          "production": {
+            "buildTarget": "@samples/nestjs-mongodb:build:production"
+          }
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.12",
+    "@nestjs/core": "^11.0.12",
+    "@nestjs/mongoose": "^11.0.3",
+    "@nestjs/swagger": "^11.0.7",
+    "mongoose": "^8.13.0"
+  }
+}

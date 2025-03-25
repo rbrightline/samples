@@ -38,6 +38,12 @@
     },
     {
       "path": "./samples/nestjs-repl"
+    },
+    {
+      "path": "./samples/nestjs-mongodb"
+    },
+    {
+      "path": "./samples/websocket"
     }
   ]
 }
