@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>NestJS Chat</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+      }
+      #messages {
+        height: 300px;
+        border: 1px solid #ccc;
+        padding: 10px;
+        overflow-y: scroll;
+        margin-bottom: 10px;
+      }
+      #messageForm {
+        display: flex;
+      }
+      #messageInput {
+        flex-grow: 1;
+        padding: 8px;
+      }
+      button {
+        padding: 8px 15px;
+        background: #007bff;
+        color: white;
+        border: none;
+        cursor: pointer;
+      }
+      button:hover {
+        background: #0056b3;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>NestJS Chat</h1>
+    <div id="userInfo" style="margin-bottom: 10px">
+      <input type="text" id="usernameInput" placeholder="Enter your username" />
+      <button id="setUsernameBtn">Set Username</button>
+    </div>
+    <div id="chat" style="display: none">
+      <div id="usersOnline"></div>
+      <div id="messages"></div>
+      <form id="messageForm">
+        <input type="text" id="messageInput" placeholder="Type your message" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+      const socket = io('http://localhost:3000');
+      const usernameInput = document.getElementById('usernameInput');
+      const setUsernameBtn = document.getElementById('setUsernameBtn');
+      const userInfoDiv = document.getElementById('userInfo');
+      const chatDiv = document.getElementById('chat');
+      const messagesDiv = document.getElementById('messages');
+      const messageForm = document.getElementById('messageForm');
+      const messageInput = document.getElementById('messageInput');
+      const usersOnlineDiv = document.getElementById('usersOnline');
+
+      setUsernameBtn.addEventListener('click', () => {
+        const username = usernameInput.value.trim();
+        if (username) {
+          socket.emit('setUsername', username);
+        }
+      });
+
+      messageForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const message = messageInput.value.trim();
+        if (message) {
+          socket.emit('message', message);
+          messageInput.value = '';
+        }
+      });
+
+      socket.on('usernameTaken', (username) => {
+        alert(`Username "${username}" is already taken!`);
+      });
+
+      socket.on('usernameSet', (username) => {
+        userInfoDiv.style.display = 'none';
+        chatDiv.style.display = 'block';
+        messagesDiv.innerHTML += `<div><strong>System:</strong> You joined as ${username}</div>`;
+      });
+
+      socket.on('userJoined', (username) => {
+        messagesDiv.innerHTML += `<div><strong>System:</strong> ${username} joined the chat</div>`;
+      });
+
+      socket.on('userLeft', (username) => {
+        messagesDiv.innerHTML += `<div><strong>System:</strong> ${username} left the chat</div>`;
+      });
+
+      socket.on('userList', (users) => {
+        usersOnlineDiv.innerHTML = `<strong>Online: </strong>${users.join(
+          ', '
+        )} (${users.length})`;
+      });
+
+      socket.on('message', (data) => {
+        messagesDiv.innerHTML += `<div><strong>${data.username}:</strong> ${data.message}</div>`;
+        messagesDiv.scrollTop = messagesDiv.scrollHeight;
+      });
+    </script>
+  </body>
+</html>

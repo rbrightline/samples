@@ -47,6 +47,9 @@
     },
     {
       "path": "./samples/websocket-live"
+    },
+    {
+      "path": "./samples/nestjs-websocket"
     }
   ]
 }

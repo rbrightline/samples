@@ -1,0 +1,73 @@
+{
+  "name": "@samples/nestjs-websocket",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "targets": {
+      "build": {
+        "executor": "@nx/esbuild:esbuild",
+        "outputs": [
+          "{options.outputPath}"
+        ],
+        "defaultConfiguration": "production",
+        "options": {
+          "platform": "node",
+          "outputPath": "samples/nestjs-websocket/dist",
+          "format": [
+            "cjs"
+          ],
+          "bundle": false,
+          "main": "samples/nestjs-websocket/src/main.ts",
+          "tsConfig": "samples/nestjs-websocket/tsconfig.app.json",
+          "assets": [
+            "samples/nestjs-websocket/src/assets"
+          ],
+          "esbuildOptions": {
+            "sourcemap": true,
+            "outExtension": {
+              ".js": ".js"
+            }
+          }
+        },
+        "configurations": {
+          "development": {},
+          "production": {
+            "esbuildOptions": {
+              "sourcemap": false,
+              "outExtension": {
+                ".js": ".js"
+              }
+            }
+          }
+        }
+      },
+      "serve": {
+        "executor": "@nx/js:node",
+        "defaultConfiguration": "development",
+        "dependsOn": [
+          "build"
+        ],
+        "options": {
+          "buildTarget": "@samples/nestjs-websocket:build",
+          "runBuildTargetDependencies": false
+        },
+        "configurations": {
+          "development": {
+            "buildTarget": "@samples/nestjs-websocket:build:development"
+          },
+          "production": {
+            "buildTarget": "@samples/nestjs-websocket:build:production"
+          }
+        }
+      }
+    }
+  },
+  "dependencies": {
+    "@nestjs/common": "^11.0.12",
+    "@nestjs/core": "^11.0.12",
+    "@nestjs/platform-socket.io": "^11.0.12",
+    "@nestjs/serve-static": "^5.0.3",
+    "@nestjs/websockets": "^11.0.12",
+    "socket.io": "^4.8.1"
+  }
+}
