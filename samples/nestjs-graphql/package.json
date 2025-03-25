@@ -1,10 +1,7 @@
 {
-  "name": "@samples/prisma",
+  "name": "@samples/nestjs-graphql",
   "version": "0.0.1",
   "private": true,
-  "scripts": {
-    "migrate": "npx prisma migrate dev --name init"
-  },
   "nx": {
     "targets": {
       "build": {
@@ -15,16 +12,15 @@
         "defaultConfiguration": "production",
         "options": {
           "platform": "node",
-          "outputPath": "samples/prisma/dist",
+          "outputPath": "samples/nestjs-graphql/dist",
           "format": [
             "cjs"
           ],
           "bundle": false,
-          "main": "samples/prisma/src/main.ts",
-          "tsConfig": "samples/prisma/tsconfig.app.json",
+          "main": "samples/nestjs-graphql/src/main.ts",
+          "tsConfig": "samples/nestjs-graphql/tsconfig.app.json",
           "assets": [
-            "samples/prisma/src/assets",
-            "samples/prisma/prisma"
+            "samples/nestjs-graphql/src/assets"
           ],
           "esbuildOptions": {
             "sourcemap": true,
@@ -52,22 +48,28 @@
           "build"
         ],
         "options": {
-          "buildTarget": "@samples/prisma:build",
+          "buildTarget": "@samples/nestjs-graphql:build",
           "runBuildTargetDependencies": false
         },
         "configurations": {
           "development": {
-            "buildTarget": "@samples/prisma:build:development"
+            "buildTarget": "@samples/nestjs-graphql:build:development"
           },
           "production": {
-            "buildTarget": "@samples/prisma:build:production"
+            "buildTarget": "@samples/nestjs-graphql:build:production"
           }
         }
       }
     }
   },
   "dependencies": {
-    "@prisma/client": "^6.5.0",
-    "prisma": "^6.5.0"
+    "@apollo/server": "^4.11.3",
+    "@as-integrations/fastify": "^2.1.1",
+    "@nestjs/apollo": "^13.0.4",
+    "@nestjs/common": "^11.0.12",
+    "@nestjs/core": "^11.0.12",
+    "@nestjs/graphql": "^13.0.4",
+    "@nestjs/platform-fastify": "^11.0.12",
+    "graphql": "^16.10.0"
   }
 }

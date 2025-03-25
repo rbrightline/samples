@@ -26,6 +26,15 @@
     },
     {
       "path": "./samples/addon"
+    },
+    {
+      "path": "./samples/graphql"
+    },
+    {
+      "path": "./samples/nestjs-fastify"
+    },
+    {
+      "path": "./samples/nestjs-graphql"
     }
   ]
 }

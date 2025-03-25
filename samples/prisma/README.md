@@ -28,4 +28,11 @@ datasource db {
 
 ```bash
 npx prisma migrate dev --name init
+npx prisma migrate dev --name updated_user_name_field
+```
+
+## Run Prisma Studio to vie database
+
+```bash
+npx prisma studio
 ```
