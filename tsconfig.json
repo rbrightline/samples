@@ -35,6 +35,9 @@
     },
     {
       "path": "./samples/file-upload"
+    },
+    {
+      "path": "./samples/nestjs-repl"
     }
   ]
 }
