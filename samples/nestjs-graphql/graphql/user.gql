@@ -1,9 +1,22 @@
 type User {
   id: ID!
   username: String!
-  email: String!
-  firstName: String
-  lastName: String
-  createdAt: String!
-  updatedAt: String!
+}
+
+input CreateUserInput {
+  username: String!
+}
+
+type Query {
+  getUser(id: ID!): User
+  getAllUsers: [User!]!
+}
+
+type Mutation {
+  createUser(input: CreateUserInput!): User!
+  deleteUser(id: ID!): Boolean!
+}
+
+type Subscription {
+  userAdded: User!
 }

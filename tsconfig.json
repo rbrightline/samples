@@ -35,6 +35,9 @@
     },
     {
       "path": "./samples/nestjs-graphql"
+    },
+    {
+      "path": "./samples/apollo-server"
     }
   ]
 }
