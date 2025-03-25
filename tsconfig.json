@@ -32,6 +32,9 @@
     },
     {
       "path": "./samples/typeorm"
+    },
+    {
+      "path": "./samples/file-upload"
     }
   ]
 }
