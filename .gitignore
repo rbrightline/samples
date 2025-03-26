@@ -19,6 +19,7 @@ node_modules
 .settings/
 *.sublime-workspace
 
+
 # IDE - VSCode
 .vscode/*
 !.vscode/*.code-snippets
